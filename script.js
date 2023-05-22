@@ -1,8 +1,8 @@
 const gameBoard = document.querySelector('#gameboard');
 const playerOneBox = document.querySelector('.player__one__box');
 const playerTwoBox = document.querySelector('.player__two__box');
-const playerOne = document.querySelector('.player__one');
-const playerTwo = document.querySelector('.player__two');
+const playerOneTextScore = document.querySelector('.player__score__one');
+const playerTwoTextScore = document.querySelector('.player__score__two');
 const infoTable = document.querySelector('.info__table');
 const infoText = document.querySelector('.info__text');
 const circle = document.querySelector('.circle');
@@ -46,9 +46,8 @@ function addMark(e) {
 }
 
 // Check Score who win
-// let winner = false;
-
 function checkScore() {
+	let winner = false;
 	const squares = document.querySelectorAll('.square');
 	const winningOptions = [
 		[0, 1, 2],
@@ -60,6 +59,7 @@ function checkScore() {
 		[0, 4, 8],
 		[2, 4, 6],
 	];
+
 	// Circles win
 	winningOptions.forEach((array) => {
 		let circleWin = array.every((cell) =>
@@ -70,10 +70,11 @@ function checkScore() {
 			squares.forEach((square) => square.replaceWith(square.cloneNode(true)));
 			winner = true;
 			playerOneScore++;
-			playerOne.textContent = 'Player 2: ' + playerOneScore;
+			playerOneTextScore.textContent = playerOneScore;
 			return;
 		}
 	});
+
 	// Cross win
 	winningOptions.forEach((array) => {
 		let crossWin = array.every((cell) =>
@@ -84,22 +85,10 @@ function checkScore() {
 			squares.forEach((square) => square.replaceWith(square.cloneNode(true)));
 			winner = true;
 			playerTwoScore++;
-			playerTwo.textContent = 'Player 2: ' + playerTwoScore;
+			playerTwoTextScore.textContent = playerTwoScore;
 			return;
 		}
 	});
-
-	// Draw
-	// winningOptions.forEach((array) => {
-	// 	let draw = array.every((cell) => squares[cell].firstChild !== null);
-	// 	if (draw) {
-	// 		infoText.textContent = 'Draw!';
-	// 	}
-	// 	reset();
-	// });
-
-	// console.log(playerOneScore, playerTwoScore);
-	//Adding points
 }
 
 // Function which clearing game board.
@@ -121,9 +110,8 @@ function reset() {
 	} else if (infoText.textContent.includes('Cross wins')) {
 		clearBoard();
 		infoText.textContent = 'Circle goes first';
+	} else if (infoText.textContent.includes('Draw')) {
+		clearBoard();
+		infoText.textContent = 'Now starting ' + mark;
 	}
-	//  else if (infoText.textContent.includes('Draw')) {
-	// 	clearBoard();
-	// 	infoText.textContent = 'Now starting ' + mark;
-	// }
 }
