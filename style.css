@@ -142,6 +142,12 @@ body {
 	animation-iteration-count: infinite;
 }
 
+@media (max-width: 768px) {
+	.player__box {
+		display: none;
+	}
+}
+
 @keyframes scaleAnimation {
 	from {
 		transform: scale(1);
